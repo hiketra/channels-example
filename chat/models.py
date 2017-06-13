@@ -18,6 +18,7 @@ class Message(models.Model):
     #child messages for when user wants to diverge
     timestamp = models.DateTimeField(default=timezone.now, db_index=True)
 
+
     def __unicode__(self):
         return '[{timestamp}] {handle}: {message}'.format(**self.as_dict())
 
