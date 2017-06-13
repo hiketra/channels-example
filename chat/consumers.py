@@ -45,7 +45,7 @@ def ws_receive(message):
         log.debug('no room in channel_session')
         return
     except Room.DoesNotExist:
-        log.debug('recieved message, buy room does not exist label=%s', label)
+        log.debug('received message, but room does not exist label=%s', label)
         return
 
     # Parse out a chat message from the content text, bailing if it doesn't
@@ -56,7 +56,7 @@ def ws_receive(message):
         log.debug("ws message isn't json text=%s", text)
         return
     
-    if set(data.keys()) != set(('handle', 'message')):
+    if set(data.keys()) != set(('child', 'handle', 'message')):
         log.debug("ws message unexpected format data=%s", data)
         return
 

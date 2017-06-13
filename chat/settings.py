@@ -56,6 +56,7 @@ TEMPLATES = (
 
 DATABASES = {
     'default': dj_database_url.config(default="postgres:///channels-example", conn_max_age=500)
+
 }
 
 AUTH_PASSWORD_VALIDATORS = (
