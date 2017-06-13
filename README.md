@@ -22,4 +22,5 @@ Then, to run:
 
 ## Running with Docker
 
+
 Tomas Tomecek put together a [Dockerized version of this app](https://github.com/TomasTomecek/open-house-2016-demo).
