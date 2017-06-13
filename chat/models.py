@@ -14,7 +14,7 @@ class Message(models.Model):
     room = models.ForeignKey(Room, related_name='messages')
     handle = models.TextField()
     message = models.TextField()
-    child = models.ForeignKey('self', on_delete=models.CASCADE)
+    child = models.ForeignKey('self', related_name='child_message', on_delete=models.CASCADE)
     #child messages for when user wants to diverge
     timestamp = models.DateTimeField(default=timezone.now, db_index=True)
 
