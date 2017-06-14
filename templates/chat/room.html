@@ -13,12 +13,13 @@
   </p>
   <form id="chatform">
     <table id="chat">
-      <tbody>
+      <tbody border="1">
         {% for message in messages %}
           <tr>
-            <td>{{ message.formatted_timestamp }}</td>
-            <td>{{ message.handle }}</td>
-            <td>{{ message.message }}</td>
+              <td class="handle" width="3%"><b>{{ message.handle }}</b></td>
+            <td class="message" width="60%">{{ message.message }}</td>
+              <td class="timestamp" width="10%">{{ message.formatted_timestamp }} <br/>
+              <span id="id=msgId{{ message.message_id }}"><b>#{{ message.message_id }}</b></span></td>
           </tr> 
         {% endfor %}
       </tbody>

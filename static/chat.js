@@ -8,16 +8,22 @@ $(function() {
         var chat = $("#chat")
         var ele = $('<tr></tr>')
 
-        ele.append(
-            $("<td></td>").text(data.timestamp)
-        )
-        ele.append(
-            $("<td></td>").text(data.handle)
-        )
-        ele.append(
-            $("<td></td>").text(data.message)
-        )
-        
+        var table ="<td class='handle' width='3%'><b> " + data.handle + " </b></td>" +
+            "<td class='message' width='60%'>" +  data.message + "</td>" +
+              "<td class='timestamp' width='10%'>" +  data.timestamp + " <br/>" +
+              "<span id=" + "msgId" + $(data.id) + "'><b># " + data.id + "</b></span></td>"
+
+
+
+        console.log(data)
+        console.log(message)
+
+
+        console.log(data.id + "is the ID")
+
+        ele.append(table)
+
+
         chat.append(ele)
     };
 

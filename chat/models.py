@@ -11,6 +11,7 @@ class Room(models.Model):
         return self.label
 
 class Message(models.Model):
+    message_id = models.AutoField(primary_key=True)
     room = models.ForeignKey(Room, related_name='messages')
     handle = models.TextField()
     message = models.TextField()
@@ -20,12 +21,12 @@ class Message(models.Model):
 
 
     def __unicode__(self):
-        return '[{timestamp}] {handle}: {message}'.format(**self.as_dict())
+        return ' [{timestamp}] {handle}: {message}'.format(**self.as_dict())
 
     @property
     def formatted_timestamp(self):
         return self.timestamp.strftime('%b %-d %-I:%M %p')
     
     def as_dict(self):
-        return {'handle': self.handle, 'message': self.message, 'timestamp': self.formatted_timestamp}
+        return {'id': self.message_id, 'handle': self.handle, 'message': self.message, 'timestamp': self.formatted_timestamp}
 
