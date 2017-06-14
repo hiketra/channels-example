@@ -28,5 +28,16 @@ class Message(models.Model):
         return self.timestamp.strftime('%b %-d %-I:%M %p')
     
     def as_dict(self):
-        return {'id': self.message_id, 'handle': self.handle, 'message': self.message, 'timestamp': self.formatted_timestamp, 'child': self.first_child, 'parent': self.parent}
+        parentJson = ""
+        if(self.parent is None):
+            parentJson = ""
+        else:
+            parentJson = self.parent.message_id
+
+        firstChildJson = ""
+        if(self.first_child is None):
+            firstChildJson = ""
+        else:
+            firstChildJson = self.first_child.message_id
+        return {'id': self.message_id, 'handle': self.handle, 'message': self.message, 'timestamp': self.formatted_timestamp, 'child': firstChildJson, 'parent': parentJson}
 

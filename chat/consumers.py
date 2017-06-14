@@ -3,7 +3,7 @@ import json
 import logging
 from channels import Group
 from channels.sessions import channel_session
-from .models import Room
+from .models import Room, Message
 
 log = logging.getLogger(__name__)
 
@@ -63,6 +63,10 @@ def ws_receive(message):
     if data:
         log.debug('chat message room=%s handle=%s message=%s', 
             room.label, data['handle'], data['message'])
+
+        parentId = data['parent']
+
+        data['parent'] = Message.objects.get(message_id=parentId)
         m = room.messages.create(**data)
 
         # See above for the note about Group
