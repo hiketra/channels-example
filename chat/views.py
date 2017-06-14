@@ -73,7 +73,7 @@ def chat_room(request, label):
 
     return render(request, "chat/room.html", {
         'room': room,
-        'messages': messages,
+        'messages': threads
     })
 
 class Thread(object):
