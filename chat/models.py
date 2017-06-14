@@ -15,7 +15,7 @@ class Message(models.Model):
     room = models.ForeignKey(Room, related_name='messages')
     handle = models.TextField()
     message = models.TextField()
-    first_child = models.ForeignKey('self', related_name='child_message', blank=True, null=True, on_delete=models.CASCADE)
+    first_child = models.ForeignKey('self', related_name='child_messages', blank=True, null=True, on_delete=models.CASCADE)
     parent = models.ForeignKey('self', related_name='parent_message', blank=True, null=True, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now, db_index=True)
 

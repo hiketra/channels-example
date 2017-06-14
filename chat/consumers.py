@@ -56,7 +56,7 @@ def ws_receive(message):
         log.debug("ws message isn't json text=%s", text)
         return
     
-    if set(data.keys()) != set(('child', 'handle', 'message')):
+    if set(data.keys()) != set(('first_child', 'parent' 'handle', 'message')):
         log.debug("ws message unexpected format data=%s", data)
         return
 

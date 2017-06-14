@@ -31,7 +31,8 @@ $(function() {
         var message = {
             handle: $('#handle').val(),
             message: $('#message').val(),
-            child: null
+            first_child: null,
+            parent: null
         }
         chatsock.send(JSON.stringify(message));
         $("#message").val('').focus();
