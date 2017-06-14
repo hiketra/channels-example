@@ -15,8 +15,8 @@ class Message(models.Model):
     room = models.ForeignKey(Room, related_name='messages')
     handle = models.TextField()
     message = models.TextField()
-    child = models.ForeignKey('self', related_name='child_message', blank=True, null=True, on_delete=models.CASCADE)
-    #child messages for when user wants to diverge
+    first_child = models.ForeignKey('self', related_name='child_message', blank=True, null=True, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', related_name='parent_message', blank=True, null=True, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now, db_index=True)
 
 
@@ -28,5 +28,5 @@ class Message(models.Model):
         return self.timestamp.strftime('%b %-d %-I:%M %p')
     
     def as_dict(self):
-        return {'id': self.message_id, 'handle': self.handle, 'message': self.message, 'timestamp': self.formatted_timestamp}
+        return {'id': self.message_id, 'handle': self.handle, 'message': self.message, 'timestamp': self.formatted_timestamp, 'child': self.child_message, 'parent': self.parent_message}
 
