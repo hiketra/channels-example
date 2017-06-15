@@ -47,9 +47,10 @@ def chat_room(request, label):
     def createChildThreadsAndAppend(thread, tier):
         #takes in a thread and returns a list of thread objects of it's children
         childThreads = []
-        parentMessages = thread.messages.filter(first_child__isnull = False)
+        threadParent = thread.parent_message
+        parentMessages = Message.objects.filter(parent_message = threadParent, first_child__isnull = False)
         for message in parentMessages:
-            threadMessages = room.messages.filter(parent = message.message_id).order_by('-timestamp')[:10]
+            threadMessages = parentMessages.order_by('-timestamp')[:10]
             #unsure if this correct way of filtering
             parent_message = message.parent_message
             newThread = Thread(False, threadMessages, parent_message, tier)
@@ -79,6 +80,6 @@ def chat_room(request, label):
 class Thread(object):
     def __init__(self, is_root, messages, parent_message, children):
         self.is_root = is_root
-        self.messages = messages
+        self.messages = messages #queryset of messages?
         self.parent_message = parent_message
         self.tier = 0 #thread-tree level

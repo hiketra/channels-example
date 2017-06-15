@@ -64,10 +64,17 @@ def ws_receive(message):
         log.debug('chat message room=%s handle=%s message=%s', 
             room.label, data['handle'], data['message'])
 
-        parentId = data['parent']
-
-        data['parent'] = Message.objects.get(message_id=parentId)
         m = room.messages.create(**data)
+
+        if(data['parent'] is not None):
+            parentId = data['parent']
+            data['parent'] = Message.objects.get(message_id=parentId)
+            #updating the first_child field on the parentMessage
+            messageId = m.message_id
+            parentMessage = Message.objects.get(message_id=parentId)
+            parentMessage.first_child = Message.objects.get(message_id = messageId)
+            #TODO: update to come kind of 'if not null update, otherwise nothing' logic...
+            parentMessage.save()
 
         # See above for the note about Group
         Group('chat-'+label, channel_layer=message.channel_layer).send({'text': json.dumps(m.as_dict())})
